@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-03-25 18:36+0700\n"
+"PO-Revision-Date: 2016-03-25 18:38+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __(;__\n"
+"X-Poedit-SearchPath-0: ecorepay-woocommerce.php\n"
+
+#: ecorepay-woocommerce.php:37
+msgid "Ecorepay gateway"
+msgstr "Ecorepay gateway"
+
+#: ecorepay-woocommerce.php:38
+msgid "Add Ecorepay payment to WooCommerce."
+msgstr ""
+
+#: ecorepay-woocommerce.php:122
+#, php-format
+msgid "%s payment completed with Transaction Id of \"%s\""
+msgstr ""
+
+#: ecorepay-woocommerce.php:275
+#, php-format
+msgid "%s payment failed with message: \"%s\""
+msgstr ""
+
+#: ecorepay-woocommerce.php:290
+msgid "Enable/Disable"
+msgstr ""
+
+#: ecorepay-woocommerce.php:292 ecorepay-woocommerce.php:298
+msgid "Enable"
+msgstr ""
+
+#: ecorepay-woocommerce.php:296
+msgid "Test Mode"
+msgstr ""
+
+#: ecorepay-woocommerce.php:302
+msgid "Title"
+msgstr ""
+
+#: ecorepay-woocommerce.php:304
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: ecorepay-woocommerce.php:309
+msgid "Customer Message"
+msgstr ""
+
+#: ecorepay-woocommerce.php:314
+msgid "Account ID"
+msgstr ""
+
+#: ecorepay-woocommerce.php:321
+msgid "Authorisation Code"
+msgstr ""
