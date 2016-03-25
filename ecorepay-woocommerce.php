@@ -49,26 +49,7 @@ function init_ecorepay_gateway_class()
 
         }
 
-        protected function get_form_data()
-        {
-
-            if ( $this->order && $this->order != null ) {
-                /* return array(
-                'amount'     => $this->get_order_total() * 100,
-                'currency'   => strtolower( $this->order->order_currency ),
-                'token'      => isset( $_POST['stripe_token'] ) ? $_POST['stripe_token'] : '',
-                'chosen_card'=> isset( $_POST['s4wc_card'] ) ? $_POST['s4wc_card'] : 'new',
-                'save_card'  => isset( $_POST['s4wc_save_card'] ) && $_POST['s4wc_save_card'] === 'true',
-                'customer'             => array(
-                'name'         => $this->order->billing_first_name . ' ' . $this->order->billing_last_name,
-                'billing_email'=> $this->order->billing_email,
-                ),
-                'errors'     => isset( $_POST['form_errors'] ) ? $_POST['form_errors'] : '',
-                );*/
-            }
-
-            return false;
-        }
+        
 
         private function build_authorizecapture_xml_query($requestArray)
         {
