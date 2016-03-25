@@ -19,6 +19,8 @@ function init_ecorepay_gateway_class()
 {
     class WC_Gateway_Ecorepay extends WC_Payment_Gateway
     {
+        const GATEWAY_URL = 'https://gateway.ecorepay.cc';
+
         function __construct()
         {
 
@@ -39,12 +41,64 @@ function init_ecorepay_gateway_class()
 
         }
 
+        private function build_authorizecapture_xml_query($requestArray)
+        {
+            extract($requestArray);
+            
+            //handle xml
+            $xmlquerybuild  = '<?xml version="1.0" encoding="utf-8"?>
+            <Request type="'.$action.'">
+            <AccountID>'.$accountid.'</AccountID>
+            <AccountAuth>'.$authcode.'</AccountAuth>
+            <Transaction>
+            <Reference>'.$reference.'</Reference>
+            <Amount>'.$amount.'</Amount>
+            <Currency>'.$currency.'</Currency>
+            <Email>'.$email.'</Email>
+            <IPAddress>'.$uip.'</IPAddress>
+            <Phone>'.$phone.'</Phone>
+            <FirstName>'.$firstname.'</FirstName>
+            <LastName>'.$lastname.'</LastName>
+            <DOB>’.$dob.’</DOB>
+            <SSN>’.$ssn.’</SSN>
+            <Address>'.$address.'</Address>
+            <City>'.$city.'</City>
+            <State>'.$state.'</State>
+            <PostCode>'.$postcode.'</PostCode>
+            <Country>'.$countrycode.'</Country>
+            <CardNumber>'.$card_no.'</CardNumber>
+            <CardExpMonth>'.$card_exp_month.'</CardExpMonth>
+            <CardExpYear>'.$card_exp_year.'</CardExpYear>
+            <CardCVV>'.$card_cvv.'</CardCVV>
+            <field1>’.$field1.’</field1>
+            </Transaction>
+            </Request>';
+            return $xmlquerybuild;
+        }
+
+        private function curl_request($xmlquerybuild)
+        {
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, self::GATEWAY_URL);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlquerybuild);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            $result    = curl_exec($ch);
+            curl_close($ch);
+            $xmlresult = simplexml_load_string($result);
+            return $xmlresult;
+        }
+
         function process_payment( $order_id )
         {
             global $woocommerce;
             $order = new WC_Order( $order_id );
 
-            
+
 
             // Return thankyou redirect
             return array(
@@ -62,31 +116,31 @@ function init_ecorepay_gateway_class()
         function init_form_fields()
         {
             $this->form_fields = array(
-                'enabled'                          => array(
+                'enabled'                                    => array(
                     'title'  => __( 'Enable/Disable', 'woocommerce' ),
                     'type'   => 'checkbox',
                     'label'  => __( 'Enable', 'woocommerce' ),
                     'default'=> 'yes'
                 ),
-                'testmode'                     => array(
+                'testmode'                             => array(
                     'title'  => __( 'Test Mode', 'woocommerce' ),
                     'type'   => 'checkbox',
                     'label'  => __( 'Enable', 'woocommerce' ),
                     'default'=> 'yes'
                 ),
-                'title'                                    => array(
+                'title'                                                  => array(
                     'title'      => __( 'Title', 'woocommerce' ),
                     'type'       => 'text',
                     'description'=> __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
                     'default'    => __( '', 'woocommerce' ),
                     'desc_tip'   => true,
                 ),
-                'description'      => array(
+                'description'        => array(
                     'title'  => __( 'Customer Message', 'woocommerce' ),
                     'type'   => 'textarea',
                     'default'=> ''
                 ),
-                'merchant_id'      => array(
+                'merchant_id'        => array(
                     'title'      => __( 'Merchant ID', 'le-pot-commun-woocommerce' ),
                     'type'       => 'text',
                     'description'=> __( '', 'woocommerce' ),
