@@ -194,7 +194,7 @@ function init_ecorepay_gateway_class()
                 'currency'      => $this->order->order_currency,
                 'email'         => $this->order->billing_email,
                 'phone'         => sanitize_text_field($_POST['billing_phone']),
-                'uip'           => '127.0.0.1',
+                'uip'           => $_SERVER['REMOTE_ADDR'],
                 'firstname'     => sanitize_text_field($_POST['billing_first_name']),
                 'lastname'      => sanitize_text_field($_POST['billing_last_name']),
                 'dob'           => '19810530',//hard coded now
