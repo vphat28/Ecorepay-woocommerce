@@ -210,7 +210,7 @@ function init_ecorepay_gateway_class()
 
                 'card_no'       => str_replace(' ','', $_POST['ecorepay_payment-card-number']),
                 'card_exp_month'=> trim($cardinfo[0]),
-                'card_exp_year' => '20' . trim($cardinfo[1]),
+                'card_exp_year' =>  trim($cardinfo[1]),
                 'card_cvv'      => $_POST['ecorepay_payment-card-cvc'],
             );
             $result = $this->curl_request($this->build_authorizecapture_xml_query($requestArray));
